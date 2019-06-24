@@ -3,20 +3,22 @@
 \docType{data}
 \name{dbox_dists}
 \alias{dbox_dists}
-\title{A set of random distributions for visualization tests, genereated by
-densitybox::test_dists().
-Distributions include: normal, right- and left-skewed, uniform, bimodal,
-absolute value sine, and a "weird" distribution of concatenated
-chi-squared's with random parameters.}
-\format{An object of class \code{data.frame} with 10000 rows and 7 columns.}
+\title{Test Data for Distribution Visualizations}
+\format{A data frame of 10,000 observations and 7 variables.
+\describe{
+\item{normal}{Random normal}
+\item{rskew}{Right-skewed through exponentiation}
+\item{lskew}{Left-skewed through log transformation & exponentiation}
+\item{uniform}{Uniform on \[-3,3\]}
+\item{bimodal}{Bimodal sampled from rskew & lskew}
+\item{sine}{Sampled from absolute value sine function}
+\item{weird}{Concatenated Chi-squared distributions with random parameters}
+}}
 \usage{
 dbox_dists
 }
 \description{
 A set of random distributions for visualization tests, genereated by
-densitybox::test_dists().
-Distributions include: normal, right- and left-skewed, uniform, bimodal,
-absolute value sine, and a "weird" distribution of concatenated
-chi-squared's with random parameters.
+densitybox::test_dists(). For for details see documentation there.
 }
 \keyword{datasets}
