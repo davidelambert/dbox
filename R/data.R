@@ -1,6 +1,5 @@
 #' A set of random distributions for visualization tests, genereated by
-#' densitybox::test_dists().
-#' Distributions include: normal, right- and left-skewed, uniform, bimodal,
-#' absolute value sine, and a "weird" distribution of concatenated
-#' chi-squared's with random parameters.
+#' densitybox::test_dists(). For for details see documentation there.
+#'
+#' @format A data frame of 10,000 observations and 7 variables.
 "dbox_dists"
