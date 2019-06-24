@@ -1,4 +1,6 @@
-#' Generate a dataframe of several random distributions for visualization tests.
+#' Generate data to test distribution visualizations.
+#'
+#' Generates a dataframe of several random distributions testing.
 #' Distributions include: normal, right- and left-skewed, uniform, bimodal,
 #' absolute value sine, and a "weird" distribution of concatenated
 #' chi-squared's with random parameters.

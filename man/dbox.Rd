@@ -2,7 +2,7 @@
 % Please edit documentation in R/densitybox.R
 \name{dbox}
 \alias{dbox}
-\title{Combined desnity/box plot with optional simulated normal density plot.}
+\title{Combined density/box plots.}
 \usage{
 dbox(x, color = "black", alpha = 0.2, linewt = 1.1,
   linewt_box = 0.8, normal = FALSE, color_norm = "black",
@@ -26,7 +26,7 @@ dbox(x, color = "black", alpha = 0.2, linewt = 1.1,
 \item{linewt_norm}{Wieght of the optional simulated normal plot.}
 }
 \description{
-Combined desnity/box plot with optional simulated normal density plot.
+Combined density/box plots.
 }
 \examples{
 ndensity <- rnorm(5000)

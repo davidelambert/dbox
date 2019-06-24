@@ -2,10 +2,7 @@
 % Please edit documentation in R/test_dists.R
 \name{test_dists}
 \alias{test_dists}
-\title{Generate a dataframe of several random distributions for visualization tests.
-Distributions include: normal, right- and left-skewed, uniform, bimodal,
-absolute value sine, and a "weird" distribution of concatenated
-chi-squared's with random parameters.}
+\title{Generate data to test distribution visualizations.}
 \usage{
 test_dists(n)
 }
@@ -13,7 +10,7 @@ test_dists(n)
 \item{n}{Number of observations.}
 }
 \description{
-Generate a dataframe of several random distributions for visualization tests.
+Generates a dataframe of several random distributions testing.
 Distributions include: normal, right- and left-skewed, uniform, bimodal,
 absolute value sine, and a "weird" distribution of concatenated
 chi-squared's with random parameters.

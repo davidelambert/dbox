@@ -1,4 +1,4 @@
-#' Combined desnity/box plot with optional simulated normal density plot.
+#' Combined density/box plots.
 #'
 #' @param x A continuous numeric vector.
 #' @param color Fill and line color of both density and box plots.

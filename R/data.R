@@ -8,7 +8,7 @@
 #' \item{normal}{Random normal}
 #' \item{rskew}{Right-skewed through exponentiation}
 #' \item{lskew}{Left-skewed through log transformation & exponentiation}
-#' \item{uniform}{Uniform on \[-3,3\]}
+#' \item{uniform}{Uniform on [-3,3]}
 #' \item{bimodal}{Bimodal sampled from rskew & lskew}
 #' \item{sine}{Sampled from absolute value sine function}
 #' \item{weird}{Concatenated Chi-squared distributions with random parameters}
