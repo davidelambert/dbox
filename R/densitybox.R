@@ -9,20 +9,22 @@
 #' @param color_norm Line color of the optional simulated normal plot.
 #' @param linewt_norm Wieght of the optional simulated normal plot.
 #' @import ggplot2
+#' @importFrom stats density rnorm sd
+#' @importFrom graphics boxplot
 #' @export
 #' @examples
 #' ndensity <- rnorm(5000)
-#' densitybox(ndensity)
+#' dbox(ndensity)
 
-densitybox <- function(x,
-                       color = "black",
-                       alpha = 0.2,
-                       linewt = 1.1,
-                       linewt_box = 0.8,
-                       normal = FALSE,
-                       color_norm = "black",
-                       linewt_norm = 1.1
-                       ) {
+dbox <- function(x,
+                 color = "black",
+                 alpha = 0.2,
+                 linewt = 1.1,
+                 linewt_box = 0.8,
+                 normal = FALSE,
+                 color_norm = "black",
+                 linewt_norm = 1.1
+                 ) {
 
   bpstats <- as.vector(boxplot(x, plot = FALSE)$stats)
   outliers <- boxplot(x, plot = FALSE)$out

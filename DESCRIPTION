@@ -1,12 +1,13 @@
 Package: densitybox
 Type: Package
 Title: Combined Density/Box Plots Using Ggplot2
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("David", "Lambert", email = "lambert.david.0@gmail.com",
                   role = c("aut", "cre"))
 Maintainer: David E. Lambert <lambert.david.0@gmail.com>
 Description: Generate combined kernel density plots with boxplots below. 
     Optionally add simulated normal density plots.
+Depends: R (>= 2.10)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
