@@ -1,0 +1,10 @@
+dbox v0.2.0 (Release date: 2019-06-29)
+=============
+
+Changes:
+* Renamed package and main function to dbox.
+* Switched to ggplot native stat_boxplot() rather than several geoms for
+  boxplot, with a significant speed improvement.
+* Switched to geom_line() rather than geom_stat() for density plots to get
+  orientatin the same as stat_boxplot().
+* Now compute densities with n=512, with speed improvements.
