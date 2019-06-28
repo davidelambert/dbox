@@ -6,7 +6,7 @@
 \usage{
 dbox(x, w = NULL, coef = 1.5, color = "black", alpha = 0.2,
   lwt = 1.1, ltype = "solid", fill = TRUE, normal = FALSE,
-  color_norm = "black", lwt_norm = 1.1, lytpe_norm = "twodash")
+  color_norm = "black", lwt_norm = 1.1, ltype_norm = "twodash")
 }
 \arguments{
 \item{x}{A continuous numeric vector.}

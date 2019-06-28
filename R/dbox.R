@@ -40,7 +40,7 @@ dbox <- function(x,
                   normal = FALSE,
                   color_norm = "black",
                   lwt_norm = 1.1,
-                  lytpe_norm = "twodash"
+                  ltype_norm = "twodash"
                   ) {
 
   # equal weights if not supplied
@@ -119,8 +119,8 @@ dbox <- function(x,
   n <- geom_path(
     data = ndf,
     aes(x = density, y = x, color = "Simulated Normal"),
-    size = lwt_normal,
-    linetype = ltype_normal
+    size = lwt_norm,
+    linetype = ltype_norm
   )
 
   # scale
