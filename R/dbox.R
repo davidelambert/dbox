@@ -5,6 +5,10 @@
 #'   same length as <x>.
 #' @param coef Defines the length of boxplot whiskers & outliers. Defaults
 #'   to the typical stat_boxplot value of 1.5.
+#' @param normal Logical. Include a simulated normal/Gaussian density
+#'   plot? Gets parameters from <x> Defaults to FALSE.
+#' @param label A character string supplying a variable name to the legend.
+#'   The default, NULL, passes the argument supplied to <x> to the legend.
 #' @param color Fill and line color of both density and box plots.
 #' @param alpha Fill transparency of both density and box plots.
 #' @param lwt Weight of density plot outline.
@@ -12,8 +16,6 @@
 #'   For other options, see ?linetype.
 #' @param fill Logical. Fill the density plot? Gets color from <color> and
 #'   alpha from <alpha>. Defaults to TRUE
-#' @param normal Logical. Include a simulated normal/Gaussian density
-#'   plot? Gets parameters from <x> Defaults to FALSE.
 #' @param color_norm Line color of the optional simulated normal plot.
 #' @param lwt_norm Weight of the optional simulated normal plot.
 #' @param ltype_norm Line type simulated normal. Default is twodash.
@@ -30,27 +32,36 @@
 
 
 dbox <- function(x,
-                  w = NULL,
-                  coef = 1.5,
-                  color = "black",
-                  alpha = 0.2,
-                  lwt = 1.1,
-                  ltype = "solid",
-                  fill = TRUE,
-                  normal = FALSE,
-                  color_norm = "black",
-                  lwt_norm = 1.1,
-                  ltype_norm = "twodash"
-                  ) {
+                 w = NULL,
+                 coef = 1.5,
+                 normal = FALSE,
+                 label = NULL,
+                 color = "black",
+                 alpha = 0.2,
+                 lwt = 1.1,
+                 ltype = 1,
+                 fill = TRUE,
+                 color_norm = "black",
+                 lwt_norm = 1.1,
+                 ltype_norm = 6
+                 ) {
+
+
+  # variable name as character string
+  varname <- ifelse(is.null(label),
+                    deparse(as.list(sys.call())[[2]]),
+                    label)
+
+  # run on complete cases only
+  xc <- na.omit(x)
 
   # equal weights if not supplied
-  nx <- length(x)
   if (is.null(w)) {
-    w <- rep(1 / nx, nx)
+    w <- rep(1 / length(xc), length(xc))
   }
 
   # compute density & create data frame
-  dens <- density(x, weights = w, na.rm = TRUE)
+  dens <- density(xc, weights = w, na.rm = TRUE)
   ddf <- data.frame(
     x = dens$x,
     density = dens$y
@@ -58,21 +69,19 @@ dbox <- function(x,
 
 
   # compute outliers
-  iqr <- stats::IQR(x, na.rm = TRUE)
-  outliers <- x[x < (quantile(x, 0.25, na.rm = TRUE) - coef * iqr) |
-                  x > (quantile(x, 0.75, na.rm = TRUE) + coef * iqr)]
+  iqr <- stats::IQR(xc)
+  outliers <- xc[xc < (quantile(xc, 0.25) - coef * iqr) |
+                 xc > (quantile(xc, 0.75) + coef * iqr)]
 
 
   # compute comparison simulated normal distribution & data frame
-  norm <- rnorm(length(x), mean(x, na.rm = TRUE), sd(x, na.rm = TRUE))
-  ndens <- density(norm)
+  norm_x <- seq(-4, 4, length.out = 512) * sd(xc) + mean(xc)
+  norm_y <- dnorm(norm_x, mean(xc), sd(xc))
   ndf <- data.frame(
-    x = ndens$x,
-    density = ndens$y
+    x = norm_x,
+    density = norm_y
   )
 
-  # variable name as character string
-  varname <- deparse(substitute(x))
 
 
   ### INDIVIDUAL PLOT ELEMENTS ###
@@ -80,9 +89,8 @@ dbox <- function(x,
   # desnity line plot
   d <- geom_path(
     data = ddf,
-    aes(x = density, y = x, color = varname),
-    size = lwt,
-    linetype = ltype
+    aes(x = density, y = x, color = varname, linetype = varname),
+    size = lwt
   )
 
   # density area plot
@@ -97,7 +105,7 @@ dbox <- function(x,
   # boxplot
   b <- stat_boxplot(
     data = NULL,
-    aes(y = x),
+    aes(y = xc),
     coef = coef,
     fill = color,
     color = color,
@@ -118,13 +126,21 @@ dbox <- function(x,
   # optional normal density comparison plot
   n <- geom_path(
     data = ndf,
-    aes(x = density, y = x, color = "Simulated Normal"),
-    size = lwt_norm,
-    linetype = ltype_norm
+    aes(x = density, y = x,
+        color = "Simulated Normal", linetype = "Simulated Normal"),
+    size = lwt_norm
   )
 
-  # scale
-  s <- scale_color_manual(name = "", values = c(color, color_norm))
+  # scales for legend, conditional on <normal>
+  if (normal) {
+    sc <- scale_color_manual(name = "",
+                             values = c(color_norm, color))
+    sl <- scale_linetype_manual(name = "",
+                                values = c(ltype_norm, ltype))
+  } else {
+    sc <- scale_color_manual(name = "", values = color)
+    sl <- scale_linetype_manual(name = "", values = ltype)
+  }
 
   # theme
   t <- theme_minimal() +
@@ -146,7 +162,7 @@ dbox <- function(x,
     {if (normal) n} +
     {if (fill) a} +
     {if (length(outliers) > 0) o} +
-    d + b + s + t + coord_flip()
+    d + b + sc + sl + t + coord_flip()
 
 
 

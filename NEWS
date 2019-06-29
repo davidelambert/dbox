@@ -1,3 +1,15 @@
+dbox v0.2.1 (Release date: 2019-06-30)
+=============
+
+Changes:
+* Omit missings at beginning of function; use this for all other calculations.
+* <normal> option plots an idealized normal distribution instead of random.
+  Better for small samples.
+* Added option to specify variable name via <label> argument.
+* Better parsing of variable name via sys.call() when <label> is not specififed.
+* Include linetype in legend.
+
+
 dbox v0.2.0 (Release date: 2019-06-29)
 =============
 
