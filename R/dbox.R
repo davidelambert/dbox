@@ -2,20 +2,20 @@
 #'
 #' @param x A continuous numeric vector.
 #' @param w A vector of weights. Must be either NULL (the default) or the
-#'   same length as <x>.
+#'   same length as `x`.
 #' @param coef Defines the length of boxplot whiskers & outliers. Defaults
 #'   to the typical stat_boxplot value of 1.5.
 #' @param normal Logical. Include a simulated normal/Gaussian density
-#'   plot? Gets parameters from <x> Defaults to FALSE.
+#'   plot? Gets parameters from `x` Defaults to FALSE.
 #' @param label A character string supplying a variable name to the legend.
-#'   The default, NULL, passes the argument supplied to <x> to the legend.
+#'   The default, NULL, passes the argument supplied to `x` to the legend.
 #' @param color Fill and line color of both density and box plots.
 #' @param alpha Fill transparency of both density and box plots.
 #' @param lwt Weight of density plot outline.
 #' @param ltype Line type (pattern) of density plot outline. Default is solid.
 #'   For other options, see ?linetype.
-#' @param fill Logical. Fill the density plot? Gets color from <color> and
-#'   alpha from <alpha>. Defaults to TRUE
+#' @param fill Logical. Fill the density plot? Gets color from `color` and
+#'   alpha from `alpha`. Defaults to TRUE
 #' @param color_norm Line color of the optional simulated normal plot.
 #' @param lwt_norm Weight of the optional simulated normal plot.
 #' @param ltype_norm Line type simulated normal. Default is twodash.
@@ -35,7 +35,6 @@
 #' dbox(diamonds$lprice[diamonds$cut == "Ideal"],
 #'      label = "Log Price: Ideal Cut Diamonds",
 #'      color = "orange2",
-#'      fill = FALSE,
 #'      normal = TRUE,
 #'      color_norm = "steelblue2")
 
@@ -176,7 +175,7 @@ dbox <- function(x,
   ltypevals <- c(ltype, ltype_norm)
   names(ltypevals) <- keys
 
-  # scales for legend, conditional on <normal>
+  # scales for legend, conditional on `normal`
   if (normal) {
     sc <- scale_color_manual(name = "", values = colorvals)
     sl <- scale_linetype_manual(name = "", values = ltypevals)

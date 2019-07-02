@@ -1,15 +1,22 @@
-Package: dbox
 Type: Package
+Package: dbox
 Title: Combined Density/Box Plots Using Ggplot2
 Version: 0.0.3
-Authors@R: person("David", "Lambert", email = "lambert.david.0@gmail.com",
-                  role = c("aut", "cre"))
+Authors@R: 
+    person(given = "David",
+           family = "Lambert",
+           role = c("aut", "cre"),
+           email = "lambert.david.0@gmail.com")
 Maintainer: David E. Lambert <lambert.david.0@gmail.com>
-Description: Generate combined kernel density plots with boxplots below. 
-    Optionally add simulated normal density plots.
-Depends: R (>= 2.10)
-License: GPL-2
+Description: Generate combined kernel density plots with
+    boxplots below.  Optionally add simulated normal density plots.
+License: GPL-3
+Depends: 
+    R (>= 2.10)
+Imports: 
+    ggplot2, stats
+Suggests: 
+    testthat
 Encoding: UTF-8
 LazyData: true
-Imports: ggplot2
 RoxygenNote: 6.1.1

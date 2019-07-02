@@ -12,13 +12,13 @@ dbox(x, w = NULL, coef = 1.5, label = NULL, color = "black",
 \item{x}{A continuous numeric vector.}
 
 \item{w}{A vector of weights. Must be either NULL (the default) or the
-same length as <x>.}
+same length as `x`.}
 
 \item{coef}{Defines the length of boxplot whiskers & outliers. Defaults
 to the typical stat_boxplot value of 1.5.}
 
 \item{label}{A character string supplying a variable name to the legend.
-The default, NULL, passes the argument supplied to <x> to the legend.}
+The default, NULL, passes the argument supplied to `x` to the legend.}
 
 \item{color}{Fill and line color of both density and box plots.}
 
@@ -29,11 +29,11 @@ The default, NULL, passes the argument supplied to <x> to the legend.}
 \item{ltype}{Line type (pattern) of density plot outline. Default is solid.
 For other options, see ?linetype.}
 
-\item{fill}{Logical. Fill the density plot? Gets color from <color> and
-alpha from <alpha>. Defaults to TRUE}
+\item{fill}{Logical. Fill the density plot? Gets color from `color` and
+alpha from `alpha`. Defaults to TRUE}
 
 \item{normal}{Logical. Include a simulated normal/Gaussian density
-plot? Gets parameters from <x> Defaults to FALSE.}
+plot? Gets parameters from `x` Defaults to FALSE.}
 
 \item{color_norm}{Line color of the optional simulated normal plot.}
 
@@ -57,7 +57,6 @@ diamonds$lprice <- log(diamonds$price)
 dbox(diamonds$lprice[diamonds$cut == "Ideal"],
      label = "Log Price: Ideal Cut Diamonds",
      color = "orange2",
-     fill = FALSE,
      normal = TRUE,
      color_norm = "steelblue2")
 }
