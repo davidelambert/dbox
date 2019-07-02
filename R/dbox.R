@@ -21,6 +21,7 @@
 #' @param ltype_norm Line type simulated normal. Default is twodash.
 #' @import ggplot2
 #' @importFrom stats density rnorm sd quantile IQR
+#' @importFrom graphics boxplot
 #' @export
 #' @examples
 #' ndensity <- rnorm(5000)
