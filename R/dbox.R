@@ -29,6 +29,10 @@
 #' rskew <- 1.5^rnorm(5000) * 5
 #' dbox(rskew, color = "orange2", fill = FALSE,
 #'      normal = TRUE, color_norm = "steelblue2")
+#'
+#' diamonds <- ggplot2::diamonds
+#' diamonds$lprice <- log(diamonds$price)
+#' dbox()
 
 
 dbox <- function(x,
@@ -75,7 +79,8 @@ dbox <- function(x,
 
 
   # compute comparison simulated normal distribution & data frame
-  norm_x <- seq(-4, 4, length.out = 512) * sd(xc) + mean(xc)
+  # to +/- 3.1 standard deviations
+  norm_x <- seq(-3.1, 3.1, length.out = 512) * sd(xc) + mean(xc)
   norm_y <- dnorm(norm_x, mean(xc), sd(xc))
   ndf <- data.frame(
     x = norm_x,
@@ -93,8 +98,8 @@ dbox <- function(x,
     size = lwt
   )
 
-  # density area plot
-  a <- geom_polygon(
+  # density fill/area plot
+  df <- geom_polygon(
     data = ddf,
     aes(x = density, y = x),
     fill = color,
@@ -107,13 +112,15 @@ dbox <- function(x,
     data = NULL,
     aes(y = xc),
     coef = coef,
-    fill = color,
+    fill = NA,
     color = color,
-    alpha = alpha,
     outlier.shape = NA,
     width = .2 * max(ddf$density),
     position = position_nudge(x = -0.15 * max(ddf$density))
   )
+
+  # boxplot fill
+  bf <- "bf"
 
   # outliers
   o <-  geom_point(
@@ -127,16 +134,21 @@ dbox <- function(x,
   n <- geom_path(
     data = ndf,
     aes(x = density, y = x,
-        color = "Simulated Normal", linetype = "Simulated Normal"),
+        color = "Normal Comparison", linetype = "Normal Comparison"),
     size = lwt_norm
   )
 
+  # key-value pairs as named vectors for scale constructions
+  keys <- c(varname, "Normal Comparison")
+  colorvals <- c(color, color_norm)
+  names(colorvals) <- keys
+  ltypevals <- c(ltype, ltype_norm)
+  names(ltypevals) <- keys
+
   # scales for legend, conditional on <normal>
   if (normal) {
-    sc <- scale_color_manual(name = "",
-                             values = c(color_norm, color))
-    sl <- scale_linetype_manual(name = "",
-                                values = c(ltype_norm, ltype))
+    sc <- scale_color_manual(name = "", values = colorvals)
+    sl <- scale_linetype_manual(name = "", values = ltypevals)
   } else {
     sc <- scale_color_manual(name = "", values = color)
     sl <- scale_linetype_manual(name = "", values = ltype)
@@ -160,7 +172,7 @@ dbox <- function(x,
 
   ggplot() +
     {if (normal) n} +
-    {if (fill) a} +
+    {if (fill) df + bf} +
     {if (length(outliers) > 0) o} +
     d + b + sc + sl + t + coord_flip()
 

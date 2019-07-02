@@ -1,16 +1,18 @@
-dbox v0.2.1 (Release date: 2019-06-30)
+dbox v0.0.3 (Release date: 2019-07-02)
 =============
 
 Changes:
-* Omit missings at beginning of function; use this for all other calculations.
-* <normal> option plots an idealized normal distribution instead of random.
-  Better for small samples.
+* Omit missings at beginning of function; use completed cases only for all
+  other processes.
+* <normal> option plots an *idealized* normal distribution instead of random
+  normal. Better for small samples.
 * Added option to specify variable name via <label> argument.
 * Better parsing of variable name via sys.call() when <label> is not specififed.
 * Include linetype in legend.
+* <fill> option affects boxplot fill as well as density plot fill.
 
 
-dbox v0.2.0 (Release date: 2019-06-29)
+dbox v0.0.2 (Release date: 2019-06-29)
 =============
 
 Changes:

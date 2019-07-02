@@ -1,7 +1,7 @@
 Package: dbox
 Type: Package
 Title: Combined Density/Box Plots Using Ggplot2
-Version: 0.2.1
+Version: 0.0.3
 Authors@R: person("David", "Lambert", email = "lambert.david.0@gmail.com",
                   role = c("aut", "cre"))
 Maintainer: David E. Lambert <lambert.david.0@gmail.com>
