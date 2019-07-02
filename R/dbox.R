@@ -32,19 +32,24 @@
 #'
 #' diamonds <- ggplot2::diamonds
 #' diamonds$lprice <- log(diamonds$price)
-#' dbox()
+#' dbox(diamonds$lprice[diamonds$cut == "Ideal"],
+#'      label = "Log Price: Ideal Cut Diamonds",
+#'      color = "orange2",
+#'      fill = FALSE,
+#'      normal = TRUE,
+#'      color_norm = "steelblue2")
 
 
 dbox <- function(x,
                  w = NULL,
                  coef = 1.5,
-                 normal = FALSE,
                  label = NULL,
                  color = "black",
                  alpha = 0.2,
                  lwt = 1.1,
                  ltype = 1,
                  fill = TRUE,
+                 normal = FALSE,
                  color_norm = "black",
                  lwt_norm = 1.1,
                  ltype_norm = 6
@@ -55,6 +60,22 @@ dbox <- function(x,
   varname <- ifelse(is.null(label),
                     deparse(as.list(sys.call())[[2]]),
                     label)
+
+  # Input errors/warnings
+  if (length(x) == 0) stop("x has no observations")
+  if (length(na.omit(x)) == 0) stop("x has no complete cases")
+  if (!is.numeric(x)) stop("x must be numeric")
+  if (is.factor(x)) warning("x should be a continuous variable")
+  if (!is.null(w)) {
+    if (!is.numeric(w)) stop("w must be numeric or NULL")
+    if(length(w) != length(x)) stop("length of w must equal length of x")
+  }
+  if (!is.logical(fill)) stop("please supply TRUE/FALSE to fill")
+  if (!is.logical(normal)) stop("please supply TRUE/FALSE to normal")
+  if (!is.null(label)) {
+    if (!is.character(label)) stop("label must be a character vector (or NULL)")
+    if (length(label) > 1) stop("please supply only one label")
+  }
 
   # run on complete cases only
   xc <- na.omit(x)
@@ -120,7 +141,16 @@ dbox <- function(x,
   )
 
   # boxplot fill
-  bf <- "bf"
+  bf <- annotate(
+    geom = "rect",
+    xmin = -.05 * max(ddf$density),
+    xmax = -.25 * max(ddf$density),
+    ymin = quantile(xc, 0.25),
+    ymax = quantile(xc, 0.75),
+    color = NA,
+    fill = color,
+    alpha = alpha,
+  )
 
   # outliers
   o <-  geom_point(
@@ -134,12 +164,13 @@ dbox <- function(x,
   n <- geom_path(
     data = ndf,
     aes(x = density, y = x,
-        color = "Normal Comparison", linetype = "Normal Comparison"),
+        color = "Comparison Normal Distribution",
+        linetype = "Comparison Normal Distribution"),
     size = lwt_norm
   )
 
   # key-value pairs as named vectors for scale constructions
-  keys <- c(varname, "Normal Comparison")
+  keys <- c(varname, "Comparison Normal Distribution")
   colorvals <- c(color, color_norm)
   names(colorvals) <- keys
   ltypevals <- c(ltype, ltype_norm)
@@ -172,7 +203,8 @@ dbox <- function(x,
 
   ggplot() +
     {if (normal) n} +
-    {if (fill) df + bf} +
+    {if (fill) df} +
+    {if (fill) bf} +
     {if (length(outliers) > 0) o} +
     d + b + sc + sl + t + coord_flip()
 

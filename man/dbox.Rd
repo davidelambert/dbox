@@ -4,9 +4,9 @@
 \alias{dbox}
 \title{Combined density/box plots.}
 \usage{
-dbox(x, w = NULL, coef = 1.5, color = "black", alpha = 0.2,
-  lwt = 1.1, ltype = "solid", fill = TRUE, normal = FALSE,
-  color_norm = "black", lwt_norm = 1.1, ltype_norm = "twodash")
+dbox(x, w = NULL, coef = 1.5, label = NULL, color = "black",
+  alpha = 0.2, lwt = 1.1, ltype = 1, fill = TRUE, normal = FALSE,
+  color_norm = "black", lwt_norm = 1.1, ltype_norm = 6)
 }
 \arguments{
 \item{x}{A continuous numeric vector.}
@@ -16,6 +16,9 @@ same length as <x>.}
 
 \item{coef}{Defines the length of boxplot whiskers & outliers. Defaults
 to the typical stat_boxplot value of 1.5.}
+
+\item{label}{A character string supplying a variable name to the legend.
+The default, NULL, passes the argument supplied to <x> to the legend.}
 
 \item{color}{Fill and line color of both density and box plots.}
 
@@ -48,4 +51,13 @@ dbox(ndensity)
 rskew <- 1.5^rnorm(5000) * 5
 dbox(rskew, color = "orange2", fill = FALSE,
      normal = TRUE, color_norm = "steelblue2")
+
+diamonds <- ggplot2::diamonds
+diamonds$lprice <- log(diamonds$price)
+dbox(diamonds$lprice[diamonds$cut == "Ideal"],
+     label = "Log Price: Ideal Cut Diamonds",
+     color = "orange2",
+     fill = FALSE,
+     normal = TRUE,
+     color_norm = "steelblue2")
 }

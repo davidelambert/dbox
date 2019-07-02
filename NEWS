@@ -4,8 +4,9 @@ dbox v0.0.3 (Release date: 2019-07-02)
 Changes:
 * Omit missings at beginning of function; use completed cases only for all
   other processes.
-* <normal> option plots an *idealized* normal distribution instead of random
-  normal. Better for small samples.
+* <normal> option plots an *idealized* normal distribution to +/- 3.1 std dev,
+  rather than a simulated random normal distribution. Prevents non-normal
+  distribution when n is small.
 * Added option to specify variable name via <label> argument.
 * Better parsing of variable name via sys.call() when <label> is not specififed.
 * Include linetype in legend.
@@ -17,8 +18,10 @@ dbox v0.0.2 (Release date: 2019-06-29)
 
 Changes:
 * Renamed package and main function to dbox.
-* Switched to ggplot native stat_boxplot() rather than several geoms for
-  boxplot, with a significant speed improvement.
-* Switched to geom_line() rather than geom_stat() for density plots to get
-  orientatin the same as stat_boxplot().
-* Now compute densities with n=512, with speed improvements.
+* Switched to ggplot native stat_boxplot(), rather than combining several
+  geom_segment() & annotate() into semi-manual boxplot. Yields a significant
+  speed improvement.
+* Switched to geom_path() rather than geom_stat() for density plots to get
+  intial orientation the same as stat_boxplot().
+* Now computes densities with n=512, rather than n=length(x). Yields a
+  significant speed improvement.
