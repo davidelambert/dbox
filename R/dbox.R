@@ -1,8 +1,9 @@
 #' Combined density/box plots.
 #'
 #' @param x A continuous numeric vector.
-#' @param w A vector of weights. Must be either NULL (the default) or the
-#'   same length as `x`.
+#' @param weights A vector of weights. Must be either NULL (the default) or the
+#'   same length as `x`. All complete cases of `x` must have a non-missing
+#'   value for `weights`.
 #' @param plot Logical, whether to plot immediately. Default is TRUE. If FALSE,
 #'   returns the plot, which can be assigned to an object.
 #' @param fence_coef Defines the length of boxplot whiskers & defines
@@ -26,24 +27,33 @@
 #' @importFrom stats density rnorm sd quantile IQR
 #' @export
 #' @examples
+#' # basic
 #' ndensity <- rnorm(5000)
 #' dbox(ndensity)
 #'
+#' # Using colors & comparison normal density plot
 #' rskew <- 1.5^rnorm(5000) * 5
 #' dbox(rskew, color = "orange2", fill = FALSE,
 #'      normal = TRUE, color_norm = "steelblue2")
 #'
-#' diamonds <- ggplot2::diamonds
-#' diamonds$lprice <- log(diamonds$price)
-#' dbox(diamonds$lprice[diamonds$cut == "Ideal"],
-#'      label = "Log Price: Ideal Cut Diamonds",
-#'      color = "orange2",
-#'      normal = TRUE,
-#'      color_norm = "steelblue2")
+#' # Assignment to an object using `plot = FALSE` and using a variable label
+#' setosa <- subset(iris, Species == "setosa")
+#' setosa_petLn <- dbox(setosa$Petal.Length, plot = FALSE,
+#'                      label = "Setosa Petal Width", color = "orange2",
+#'                      normal = TRUE, color_norm = "steelblue2")
+#' setosa_petLn
+#'
+#' # Using weights, a wider boxplot fence coefficient, and a thinner line
+#' dbox::guilford
+#' dbox(guilford$income)
+#' dbox(guilford$income,
+#'      weights = guilford$perwt,
+#'      fence_coef = 2,
+#'      lwt = 0.8)
 
 
 dbox <- function(x,
-                 w = NULL,
+                 weights = NULL,
                  plot = TRUE,
                  fence_coef = 1.5,
                  label = NULL,
@@ -70,11 +80,11 @@ dbox <- function(x,
   if (is.factor(x)) {
     warning("x should be a continuous variable. weird results may ensue.")
   }
-  if (!is.null(w)) {
-    if (!is.numeric(w)) stop("w must be numeric or NULL")
-    if(length(w) != length(x)) stop("length of w must equal length of x")
-    if (isFALSE(all(complete.cases(x) == complete.cases(w)))) {
-      stop("complete cases of x do not match complete cases of w
+  if (!is.null(weights)) {
+    if (!is.numeric(weights)) stop("weights must be numeric or NULL")
+    if(length(weights) != length(x)) stop("length of weights must equal length of x")
+    if (isFALSE(all(complete.cases(x) == complete.cases(weights)))) {
+      stop("complete cases of x do not match complete cases of weights
            check missing values")
     }
   }
@@ -88,10 +98,10 @@ dbox <- function(x,
 
   # complete cases only. cases will match, as checked above.
   x <- na.omit(x)
-  if(!is.null(w)) wts <- na.omit(w)
+  if(!is.null(weights)) wts <- na.omit(weights)
 
   # compute density, conditional on whether weights are supplied
-  if (is.null(w)){
+  if (is.null(weights)){
     dens <- density(x)
   } else {
     wts_scaled <- wts / sum(wts)
@@ -106,7 +116,7 @@ dbox <- function(x,
 
 
   # determine outliers
-  if (is.null(w)) {
+  if (is.null(weights)) {
     p25 <- quantile(x, .25)
     p75 <- quantile(x, .75)
   } else {
@@ -122,7 +132,7 @@ dbox <- function(x,
 
   # compute comparison simulated normal distribution & data frame
   # to +/- 3.1 standard deviations
-  if (is.null(w)) {
+  if (is.null(weights)) {
     meanx <- mean(x)
     sdx <- sd(x)
   } else {
@@ -163,7 +173,7 @@ dbox <- function(x,
 
 
   # boxplot
-  if (is.null(w)) {
+  if (is.null(weights)) {
     b <- stat_boxplot(
       data = NULL,
       aes(y = x),
@@ -251,7 +261,6 @@ dbox <- function(x,
       axis.text.y = element_blank(),
       panel.grid.major.y = element_blank(),
       panel.grid.minor.y = element_blank(),
-      panel.grid.minor.x = element_blank(),
       legend.position = "bottom"
     )
 

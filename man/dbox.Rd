@@ -4,16 +4,17 @@
 \alias{dbox}
 \title{Combined density/box plots.}
 \usage{
-dbox(x, w = NULL, plot = TRUE, fence_coef = 1.5, label = NULL,
-  color = "black", alpha = 0.2, lwt = 1.1, ltype = 1,
-  fill = TRUE, normal = FALSE, color_norm = "black",
+dbox(x, weights = NULL, plot = TRUE, fence_coef = 1.5,
+  label = NULL, color = "black", alpha = 0.2, lwt = 1.1,
+  ltype = 1, fill = TRUE, normal = FALSE, color_norm = "black",
   lwt_norm = 1.1, ltype_norm = 6)
 }
 \arguments{
 \item{x}{A continuous numeric vector.}
 
-\item{w}{A vector of weights. Must be either NULL (the default) or the
-same length as `x`.}
+\item{weights}{A vector of weights. Must be either NULL (the default) or the
+same length as `x`. All complete cases of `x` must have a non-missing
+value for `weights`.}
 
 \item{plot}{Logical, whether to plot immediately. Default is TRUE. If FALSE,
 returns the plot, which can be assigned to an object.}
@@ -49,18 +50,27 @@ plot? Gets parameters from `x` Defaults to FALSE.}
 Combined density/box plots.
 }
 \examples{
+# basic
 ndensity <- rnorm(5000)
 dbox(ndensity)
 
+# Using colors & comparison normal density plot
 rskew <- 1.5^rnorm(5000) * 5
 dbox(rskew, color = "orange2", fill = FALSE,
      normal = TRUE, color_norm = "steelblue2")
 
-diamonds <- ggplot2::diamonds
-diamonds$lprice <- log(diamonds$price)
-dbox(diamonds$lprice[diamonds$cut == "Ideal"],
-     label = "Log Price: Ideal Cut Diamonds",
-     color = "orange2",
-     normal = TRUE,
-     color_norm = "steelblue2")
+# Assignment to an object using `plot = FALSE` and using a variable label
+setosa <- subset(iris, Species == "setosa")
+setosa_petLn <- dbox(setosa$Petal.Length, plot = FALSE,
+                     label = "Setosa Petal Width", color = "orange2",
+                     normal = TRUE, color_norm = "steelblue2")
+setosa_petLn
+
+# Using weights, a wider boxplot fence coefficient, and a thinner line
+dbox::guilford
+dbox(guilford$income)
+dbox(guilford$income,
+     weights = guilford$perwt,
+     fence_coef = 2,
+     lwt = 0.8)
 }
