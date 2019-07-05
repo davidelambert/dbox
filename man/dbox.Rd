@@ -4,9 +4,10 @@
 \alias{dbox}
 \title{Combined density/box plots.}
 \usage{
-dbox(x, w = NULL, coef = 1.5, label = NULL, color = "black",
-  alpha = 0.2, lwt = 1.1, ltype = 1, fill = TRUE, normal = FALSE,
-  color_norm = "black", lwt_norm = 1.1, ltype_norm = 6)
+dbox(x, w = NULL, plot = TRUE, fence_coef = 1.5, label = NULL,
+  color = "black", alpha = 0.2, lwt = 1.1, ltype = 1,
+  fill = TRUE, normal = FALSE, color_norm = "black",
+  lwt_norm = 1.1, ltype_norm = 6)
 }
 \arguments{
 \item{x}{A continuous numeric vector.}
@@ -14,8 +15,11 @@ dbox(x, w = NULL, coef = 1.5, label = NULL, color = "black",
 \item{w}{A vector of weights. Must be either NULL (the default) or the
 same length as `x`.}
 
-\item{coef}{Defines the length of boxplot whiskers & outliers. Defaults
-to the typical stat_boxplot value of 1.5.}
+\item{plot}{Logical, whether to plot immediately. Default is TRUE. If FALSE,
+returns the plot, which can be assigned to an object.}
+
+\item{fence_coef}{Defines the length of boxplot whiskers & defines
+outliers. Defaults to the typical value of 1.5.}
 
 \item{label}{A character string supplying a variable name to the legend.
 The default, NULL, passes the argument supplied to `x` to the legend.}

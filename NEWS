@@ -1,3 +1,17 @@
+dbox v0.0.4 (Release date: 2019-07-05)
+=============
+
+Changes:
+* Weights, in general, actually work.
+* Relatedly: now depends on Hmisc.
+* When weights are supplied, stop if any complete case of x has a missing w,
+  and vice versa.
+* When weights are supplied, comparison normal distribution is constructed
+  using weights.
+* Added <plot> option, defaulting to TRUE. If FLASE, plot output can be
+  assigned to an object.
+
+
 dbox v0.0.3 (Release date: 2019-07-02)
 =============
 
