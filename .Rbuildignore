@@ -6,3 +6,5 @@
 ^cran-comments\.md$
 ^\.github$
 ^\.travis\.yml$
+R/dbox-testing.R
+working/
