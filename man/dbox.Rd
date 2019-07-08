@@ -5,9 +5,9 @@
 \title{Combined density/box plots.}
 \usage{
 dbox(x, weights = NULL, plot = TRUE, fence_coef = 1.5,
-  label = NULL, color = "black", alpha = 0.2, lwt = 1.1,
-  ltype = 1, fill = TRUE, normal = FALSE, color_norm = "black",
-  lwt_norm = 1.1, ltype_norm = 6)
+  label = NULL, color = "black", alpha = 0.2, lwt = 1, ltype = 1,
+  fill = TRUE, normal = FALSE, color_norm = "black", lwt_norm = 1,
+  ltype_norm = 6)
 }
 \arguments{
 \item{x}{A continuous numeric vector.}

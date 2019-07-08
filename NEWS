@@ -12,6 +12,9 @@ Changes:
 * Added <plot> option, defaulting to TRUE. If FLASE, plot output can be
   assigned to an object.
 * Added "guilford" dataset to demonstrate (and test) use of weights.
+* Changed conditional plotting of normal comparison, fill, and outliers to
+  if/else statements ins
+* Changed default line weight to 1 (from 1.1).
 
 
 dbox v0.0.3 (Release date: 2019-07-02)

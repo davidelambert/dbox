@@ -15,7 +15,6 @@
 #' }
 'dbox_dists'
 
-
 #' Guilford County, NC 2017 Income Data
 #'
 #' 3,352 observations plus survey weights of 2017 Guilford County, NC personal

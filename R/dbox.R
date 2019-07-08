@@ -59,12 +59,12 @@ dbox <- function(x,
                  label = NULL,
                  color = "black",
                  alpha = 0.2,
-                 lwt = 1.1,
+                 lwt = 1,
                  ltype = 1,
                  fill = TRUE,
                  normal = FALSE,
                  color_norm = "black",
-                 lwt_norm = 1.1,
+                 lwt_norm = 1,
                  ltype_norm = 6
                  ) {
 
@@ -84,8 +84,7 @@ dbox <- function(x,
     if (!is.numeric(weights)) stop("weights must be numeric or NULL")
     if(length(weights) != length(x)) stop("length of weights must equal length of x")
     if (isFALSE(all(complete.cases(x) == complete.cases(weights)))) {
-      stop("complete cases of x do not match complete cases of weights
-           check missing values")
+      stop("complete cases of x do not match complete cases of weights: check missing values")
     }
   }
   if (!is.logical(fill)) stop("please supply TRUE/FALSE to fill")

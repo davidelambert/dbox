@@ -8,8 +8,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "lambert.david.0@gmail.com")
 Maintainer: David E. Lambert <lambert.david.0@gmail.com>
-Description: Generate combined kernel density plots with
-    boxplots below.  Optionally add simulated normal density plots.
+Description: Generate combined kernel density/box plots. Optionally add 
+    simulated normal density plots.
 License: GPL-3
 Depends: 
     R (>= 2.10)
